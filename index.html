@@ -3,305 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>naacioo - South Vibes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
-    
+    <title>South | Dark Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* --- GŁĘBOKA CIEMNOŚĆ - ZMIENNE --- */
         :root {
-            /* PALETA SOUTH AMBIENT */
-            --bg-deep: #050505;       /* Prawie czarny */
-            --bg-panel: #0f0f10;      /* Bardzo ciemny szary */
-            --accent-ambient: #5e60ce; /* Przygaszony, nocny fiolet */
-            --accent-glow: rgba(94, 96, 206, 0.3);
-            --text-white: #ffffff;
-            --text-gray: #8b8b99;
+            --bg-color: #050505;          /* Prawie czysta czerń */
+            --bg-secondary: #0a0a0a;      /* Minimalnie jaśniejsza czerń */
+            --text-main: #c0c0c0;         /* Srebrzysty tekst (nie biały, żeby nie raził) */
+            --text-dim: #666666;          /* Ciemnoszary tekst poboczny */
+            --accent: #2e8b57;            /* Ciemny szmaragd (SeaGreen) - spokojny akcent */
+            --card-bg: rgba(20, 20, 20, 0.6); /* Ciemne półprzezroczyste tło kart */
+            --nav-height: 80px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-white);
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-color);
+            /* Bardzo subtelny gradient, żeby nie było płasko */
+            background-image: radial-gradient(circle at 50% 50%, #111111 0%, #000000 100%);
+            color: var(--text-main);
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* --- NAWIGACJA (MINIMALISTYCZNA) --- */
-        nav {
-            display: flex;
-            justify-content: center; /* Wyśrodkowane logo, bo brak linków */
-            align-items: center;
-            padding: 20px 5%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.95), rgba(5,5,5,0.8));
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #1a1a1a;
-            backdrop-filter: blur(10px); /* Efekt rozmycia tła */
-            transition: transform 0.4s ease;
+        /* --- DARK GLASSMORPHISM --- */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* Bardzo cienka, ciemna ramka */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .nav-hidden { transform: translateY(-100%); }
+        /* --- NAWIGACJA --- */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+            transition: top 0.5s ease-in-out;
+            background: rgba(5, 5, 5, 0.9); /* Prawie czarne tło paska */
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
 
-        .logo { 
+        .logo {
             font-size: 1.5rem;
-            font-weight: 800; 
-            color: var(--text-white); 
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text-main);
             text-transform: uppercase;
-            text-shadow: 0 0 15px var(--accent-glow);
         }
         
-        /* Akcent kropki w logo */
-        .logo span { color: var(--accent-ambient); }
+        .logo span { color: var(--accent); } /* Kolor kropki lub akcentu */
 
-        /* --- HERO SECTION (KLIMATYCZNA) --- */
+        .nav-links { list-style: none; display: flex; gap: 40px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 400;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO --- */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* Tło: Mroczne miasto nocą */
-            background: 
-                linear-gradient(to bottom, rgba(5,5,5,0.3), var(--bg-deep)),
-                url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 0 20px;
+            position: relative;
         }
 
-        /* Ambientowy efekt poświaty za tekstem */
-        .hero-glow {
+        /* Cień/Poświata w tle (zamiast kuli światła, teraz cień) */
+        .ambient-glow {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(46, 139, 87, 0.05) 0%, rgba(0,0,0,0) 60%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
             pointer-events: none;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-        }
-
-        .hero h1 { 
-            font-size: 4rem; 
-            font-weight: 900; 
-            margin-bottom: 10px;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-
-        .hero h1 span { color: var(--accent-ambient); }
-        
-        .hero p { 
-            font-size: 1.2rem; 
-            color: var(--text-gray); 
-            margin-top: 20px;
+        .hero h1 {
+            font-size: 5rem;
             font-weight: 300;
-            letter-spacing: 1px;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+            color: #fff; /* Tytuł jaśniejszy */
+            text-shadow: 0 0 20px rgba(0,0,0,1);
         }
 
-        /* --- SEKCJA O MNIE (SOUTH STYLE) --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 100px 20px; }
-
-        .about-box {
-            background: var(--bg-panel);
-            padding: 50px;
-            border-radius: 4px; /* Ostre krawędzie pasują do South */
-            border: 1px solid #1a1a1a;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Dekoracyjny pasek z boku */
-        .about-box::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 4px;
-            background: var(--accent-ambient);
-            box-shadow: 0 0 15px var(--accent-ambient);
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 450px;
+            margin-bottom: 50px;
+            line-height: 1.8;
         }
 
-        .about-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 4px; /* Kwadratowe, surowe zdjęcie */
-            filter: grayscale(80%); /* Zdjęcie prawie czarno-białe dla klimatu */
-            transition: 0.5s;
-            border: 1px solid #333;
-        }
-        
-        .about-box:hover .profile-pic {
-            filter: grayscale(0%); /* Kolor wraca po najechaniu */
-            border-color: var(--accent-ambient);
-        }
-
-        .about-text h2 { 
-            margin-bottom: 15px; 
-            font-size: 2.2rem; 
+        /* Minimalistyczny przycisk */
+        .btn-dark {
+            padding: 15px 45px;
+            border: 1px solid var(--text-dim);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 2px; /* Bardziej kanciasty dla "technicznego" wyglądu */
+            transition: 0.4s;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        
-        .about-text p { color: var(--text-gray); font-weight: 300; }
 
-        /* --- INFO / STATUS --- */
-        .info-section { 
-            background-color: #080808; 
-            padding: 80px 20px; 
-            border-top: 1px solid #111;
+        .btn-dark:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px rgba(46, 139, 87, 0.2);
+        }
+
+        /* --- SEKCJE --- */
+        section { padding: 120px 10%; }
+
+        .section-header {
+            margin-bottom: 80px;
+            border-left: 2px solid var(--accent);
+            padding-left: 20px;
         }
         
-        .grid-cards {
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #fff;
+        }
+        .section-header p {
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
-        .card {
-            background: var(--bg-panel);
-            padding: 35px;
-            border-radius: 4px;
-            border: 1px solid #1a1a1a;
+        .info-card {
+            padding: 30px;
             transition: 0.3s;
         }
 
-        .card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--accent-ambient); 
-            background: #131315;
+        .info-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
         }
-        
-        .card h3 { 
-            font-size: 1.2rem; 
-            margin-bottom: 15px; 
-            color: var(--text-white); 
-            text-transform: uppercase;
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            font-weight: 400;
+            color: #e0e0e0;
             letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .card p { font-size: 0.95rem; color: var(--text-gray); }
-
-        /* Ikona statusu (kropka) */
-        .status-dot {
-            width: 10px; height: 10px;
-            background-color: var(--accent-ambient);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-ambient);
         }
 
-        /* --- STOPKA (MINIMALISTYCZNA) --- */
+        .info-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
         footer {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--bg-deep);
-            border-top: 1px solid #111;
-            color: #444;
+            padding: 60px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            color: #333;
             font-size: 0.8rem;
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 2.5rem; }
-            .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .profile-pic { margin: 0 auto 30px auto; width: 150px; height: 150px; }
-            .hero-glow { width: 300px; height: 300px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
     <nav id="navbar">
-        <div class="logo">NAACIOO<span>.</span></div>
+        <a href="#" class="logo">SOUTH<span>.</span></a>
+        <ul class="nav-links">
+            <li><a href="#start">Start</a></li>
+            <li><a href="#styl">Styl</a></li>
+            <li><a href="#gry">Gry</a></li>
+        </ul>
     </nav>
 
-    <section class="hero">
-        <div class="hero-glow"></div>
-        <div class="hero-content">
-            <h1>WITAMY NA <br><span>SOUTH SIDE</span></h1>
-            <p>Roleplay. Klimat. Historie. <br>Bez zbędnych słów.</p>
-        </div>
+    <section id="start" class="hero">
+        <div class="ambient-glow"></div>
+        <h1>SOUTH</h1>
+        <p>Miejsce, gdzie cienie są bezpieczne, a rozgrywka płynie własnym rytmem.</p>
+        <a href="#styl" class="btn-dark">Eksploruj</a>
     </section>
 
-    <section class="container">
-        <div class="about-box">
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="image_0.png" alt="Profil" class="profile-pic">
-                </div>
-                <div class="about-text">
-                    <h2>Kto tu rządzi?</h2>
-                    <p>Siemano. Tutaj liczy się jakość rozgrywki i imersja. Nie szukam poklasku, buduję historie na serwerach RP.</p>
-                    <br>
-                    <p>Gramy Hard RP. Szanujemy zasady ulicy i tworzymy wątki, które zostają w pamięci na długo. Jeśli czujesz ten klimat – oglądaj i chłon atmosferę.</p>
-                </div>
+    <section id="styl">
+        <div class="section-header">
+            <h2>Spokój Nocy</h2>
+            <p>Filozofia kanału</p>
+        </div>
+        <div class="grid-container">
+            <div class="info-card glass">
+                <h3>Atmosfera</h3>
+                <p>Brak krzykliwych powiadomień. Ciemny interfejs. Muzyka ambientowa w tle. Idealne tło do Twojego odpoczynku.</p>
+            </div>
+            <div class="info-card glass">
+                <h3>Slow Gaming</h3>
+                <p>Nigdzie się nie spieszymy. Doceniamy detale w grach, czytamy dialogi i budujemy bez presji czasu.</p>
             </div>
         </div>
     </section>
 
-    <section class="info-section">
-        <div class="container">
-            <div class="grid-cards">
-                
-                <div class="card">
-                    <h3><div class="status-dot"></div> STYL GRY</h3>
-                    <p>South Central RP. Gangi uliczne, brudne interesy i życie na krawędzi. Zero tryhardowania, 100% klimatu.</p>
-                </div>
-
-                <div class="card">
-                    <h3><div class="status-dot"></div> TRANSMISJE</h3>
-                    <p>Odpalam streama, kiedy na mieście zaczyna się dziać. Godziny wieczorne/nocne. Bez stałego grafiku.</p>
-                </div>
-
-                <div class="card">
-                    <h3><div class="status-dot"></div> KONTAKT</h3>
-                    <p>Sprawy biznesowe i współprace:<br> <span style="color: #fff;">natankrysiu@o2.pl</span></p>
-                </div>
-
+    <section id="gry">
+        <div class="section-header">
+            <h2>Światy</h2>
+            <p>Wybrane tytuły</p>
+        </div>
+        <div class="grid-container">
+            <div class="info-card glass">
+                <h3>Minecraft</h3>
+                <p>Eksploracja jaskiń (Deep Dark), budowanie klimatycznych struktur w biomach tajgi i ciemnego lasu.</p>
+            </div>
+            <div class="info-card glass">
+                <h3>Indie Adventure</h3>
+                <p>Hollow Knight, Inside, Limbo – gry z niepowtarzalnym, często mrocznym, ale pięknym stylem artystycznym.</p>
+            </div>
+            <div class="info-card glass">
+                <h3>Chill</h3>
+                <p>Powolne i spokojne przechodzenie miłych gier.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 naacioo. South Vibes Only.</p>
-        <p style="margin-top: 10px;">
-            🛡️ Protected by Cloudflare<sup>&reg;</sup>
-        </p>
+        <p> &copy; 2025 South</p>
     </footer>
 
     <script>
-        let lastScrollTop = 0;
-        const navbar = document.getElementById('navbar');
+        let prevScrollpos = window.pageYOffset;
+        const navbar = document.getElementById("navbar");
 
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                navbar.classList.add('nav-hidden');
+        window.onscroll = function() {
+            let currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                navbar.style.top = "0";
             } else {
-                navbar.classList.remove('nav-hidden');
+                navbar.style.top = "-85px";
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
-        });
+            prevScrollpos = currentScrollPos;
+        }
     </script>
-
 </body>
 </html>
