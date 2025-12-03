@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>naacioo - South Vibes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* PALETA SOUTH AMBIENT */
+            --bg-deep: #050505;       /* Prawie czarny */
+            --bg-panel: #0f0f10;      /* Bardzo ciemny szary */
+            --accent-ambient: #5e60ce; /* Przygaszony, nocny fiolet */
+            --accent-glow: rgba(94, 96, 206, 0.3);
+            --text-white: #ffffff;
+            --text-gray: #8b8b99;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAWIGACJA (MINIMALISTYCZNA) --- */
+        nav {
+            display: flex;
+            justify-content: center; /* Wyśrodkowane logo, bo brak linków */
+            align-items: center;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.95), rgba(5,5,5,0.8));
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+            backdrop-filter: blur(10px); /* Efekt rozmycia tła */
+            transition: transform 0.4s ease;
+        }
+
+        .nav-hidden { transform: translateY(-100%); }
+
+        .logo { 
+            font-size: 1.5rem;
+            font-weight: 800; 
+            color: var(--text-white); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+        
+        /* Akcent kropki w logo */
+        .logo span { color: var(--accent-ambient); }
+
+        /* --- HERO SECTION (KLIMATYCZNA) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Tło: Mroczne miasto nocą */
+            background: 
+                linear-gradient(to bottom, rgba(5,5,5,0.3), var(--bg-deep)),
+                url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
+
+        /* Ambientowy efekt poświaty za tekstem */
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span { color: var(--accent-ambient); }
+        
+        .hero p { 
+            font-size: 1.2rem; 
+            color: var(--text-gray); 
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* --- SEKCJA O MNIE (SOUTH STYLE) --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 100px 20px; }
+
+        .about-box {
+            background: var(--bg-panel);
+            padding: 50px;
+            border-radius: 4px; /* Ostre krawędzie pasują do South */
+            border: 1px solid #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Dekoracyjny pasek z boku */
+        .about-box::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: var(--accent-ambient);
+            box-shadow: 0 0 15px var(--accent-ambient);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px; /* Kwadratowe, surowe zdjęcie */
+            filter: grayscale(80%); /* Zdjęcie prawie czarno-białe dla klimatu */
+            transition: 0.5s;
+            border: 1px solid #333;
+        }
+        
+        .about-box:hover .profile-pic {
+            filter: grayscale(0%); /* Kolor wraca po najechaniu */
+            border-color: var(--accent-ambient);
+        }
+
+        .about-text h2 { 
+            margin-bottom: 15px; 
+            font-size: 2.2rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .about-text p { color: var(--text-gray); font-weight: 300; }
+
+        /* --- INFO / STATUS --- */
+        .info-section { 
+            background-color: #080808; 
+            padding: 80px 20px; 
+            border-top: 1px solid #111;
+        }
+        
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            padding: 35px;
+            border-radius: 4px;
+            border: 1px solid #1a1a1a;
+            transition: 0.3s;
+        }
+
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent-ambient); 
+            background: #131315;
+        }
+        
+        .card h3 { 
+            font-size: 1.2rem; 
+            margin-bottom: 15px; 
+            color: var(--text-white); 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card p { font-size: 0.95rem; color: var(--text-gray); }
+
+        /* Ikona statusu (kropka) */
+        .status-dot {
+            width: 10px; height: 10px;
+            background-color: var(--accent-ambient);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-ambient);
+        }
+
+        /* --- STOPKA (MINIMALISTYCZNA) --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-deep);
+            border-top: 1px solid #111;
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .profile-pic { margin: 0 auto 30px auto; width: 150px; height: 150px; }
+            .hero-glow { width: 300px; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo">NAACIOO<span>.</span></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <h1>WITAMY NA <br><span>SOUTH SIDE</span></h1>
+            <p>Roleplay. Klimat. Historie. <br>Bez zbędnych słów.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="about-box">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="image_0.png" alt="Profil" class="profile-pic">
+                </div>
+                <div class="about-text">
+                    <h2>Kto tu rządzi?</h2>
+                    <p>Siemano. Tutaj liczy się jakość rozgrywki i imersja. Nie szukam poklasku, buduję historie na serwerach RP.</p>
+                    <br>
+                    <p>Gramy Hard RP. Szanujemy zasady ulicy i tworzymy wątki, które zostają w pamięci na długo. Jeśli czujesz ten klimat – oglądaj i chłon atmosferę.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="grid-cards">
+                
+                <div class="card">
+                    <h3><div class="status-dot"></div> STYL GRY</h3>
+                    <p>South Central RP. Gangi uliczne, brudne interesy i życie na krawędzi. Zero tryhardowania, 100% klimatu.</p>
+                </div>
+
+                <div class="card">
+                    <h3><div class="status-dot"></div> TRANSMISJE</h3>
+                    <p>Odpalam streama, kiedy na mieście zaczyna się dziać. Godziny wieczorne/nocne. Bez stałego grafiku.</p>
+                </div>
+
+                <div class="card">
+                    <h3><div class="status-dot"></div> KONTAKT</h3>
+                    <p>Sprawy biznesowe i współprace:<br> <span style="color: #fff;">natankrysiu@o2.pl</span></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 naacioo. South Vibes Only.</p>
+        <p style="margin-top: 10px;">
+            🛡️ Protected by Cloudflare<sup>&reg;</sup>
+        </p>
+    </footer>
+
+    <script>
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                navbar.classList.add('nav-hidden');
+            } else {
+                navbar.classList.remove('nav-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        });
+    </script>
+
+</body>
+</html>
